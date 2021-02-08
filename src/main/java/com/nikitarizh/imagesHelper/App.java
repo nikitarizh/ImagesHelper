@@ -2,6 +2,7 @@ package com.nikitarizh.imagesHelper;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.util.Scanner;
 
 import com.nikitarizh.imagesHelper.helpers.FileHelper;
 import com.nikitarizh.imagesHelper.helpers.ImageHelper;
@@ -15,14 +16,22 @@ public class App {
 
     public static void main(String[] args) {
 
-        BufferedImage image = FileHelper.getImage("1.jpg");
+        final Scanner in = new Scanner(System.in);
 
+        System.out.println("\nSpecify initial filename");
+        String filename = in.nextLine();
+
+        BufferedImage image = FileHelper.getImage(filename);
         if (image == null) {
             logger.error("Image is not loaded");
             System.exit(1);
         }
 
-        FileHelper.writeImage("2.png", ImageHelper.resizeImage(image, 500, Image.SCALE_SMOOTH));
-        // FileHelper.writeImage("2.jpg", image);
+        System.out.println("\n\nSpecify new width");
+        int newWidth = in.nextInt();
+
+        FileHelper.writeImage("2-streams", "jpg", ImageHelper.resizeImage(image, newWidth, Image.SCALE_SMOOTH));
+
+        in.close();
     }
 }
