@@ -3,6 +3,7 @@
 .vscode/
 target/
 *.jpg
+*.png
 .classpath
 .factorypath
 .project
