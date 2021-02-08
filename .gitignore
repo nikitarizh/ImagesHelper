@@ -1,0 +1,8 @@
+.DS_Store
+.settings/
+.vscode/
+target/
+*.jpg
+.classpath
+.factorypath
+.project
