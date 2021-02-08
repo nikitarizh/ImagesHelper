@@ -42,7 +42,7 @@ public class ImageHelper {
         }
 
         App.logger.debug("Creating new buffered image");
-        BufferedImage bufferedImage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+        BufferedImage bufferedImage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_RGB);
 
         App.logger.debug("Creating graphics");
         Graphics2D bufferedGraphics2d = bufferedImage.createGraphics();
