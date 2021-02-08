@@ -8,6 +8,14 @@ import com.nikitarizh.imagesHelper.App;
 
 public class ImageHelper {
     
+    /**
+     * Resized image to {@code newWidth} by {@code newHeight}
+     * @param image
+     * @param newWidth
+     * @param newHeight
+     * @param hints
+     * @return resized {@link BufferedImage}
+     */
     public static BufferedImage resizeImage(BufferedImage image, int newWidth, int newHeight, int hints) {
         App.logger.debug("Trying to resize image " + image.toString());
 
@@ -22,12 +30,24 @@ public class ImageHelper {
         return bufferedImage;
     }
 
+    /**
+     * Resized image to {@code newWidth} width aspect ratio saving
+     * @param image
+     * @param newWidth
+     * @param hints
+     * @return resized {@link BufferedImage}
+     */
     public static BufferedImage resizeImage(BufferedImage image, int newWidth, int hints) {
         int newHeight = newWidth  * image.getHeight() / image.getWidth();
         
         return resizeImage(image, newWidth, newHeight, hints);
     }
 
+    /**
+     * Converts {@link Image} to {@link BufferedImage}
+     * @param image
+     * @return {@link BufferedImage} or null of image is null
+     */
     public static BufferedImage toBufferedImage(Image img) {
         if (img == null) {
             App.logger.error("Image can't be null");

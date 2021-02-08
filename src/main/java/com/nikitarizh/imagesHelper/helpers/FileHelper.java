@@ -18,6 +18,11 @@ import com.nikitarizh.imagesHelper.App;
 
 public class FileHelper {
 
+    /**
+     * Returns file that lies in specified URL
+     * @param URL
+     * @return {@link File} or null if URL is null or empty
+     */
     public static File getFile(String URL) {
         if (URL == null || URL.trim().equals("")) {
             App.logger.error("URL " + URL + " is incorrect");
@@ -49,6 +54,11 @@ public class FileHelper {
         return null;
     }
 
+    /**
+     * Returns image (as {@link BufferedImage}) that lies in specified URL
+     * @param URL
+     * @return {@link BufferedImage} or null if URL is null or error occured
+     */
     public static BufferedImage getImage(String URL) {
         App.logger.debug("Trying to get image " + URL);
 
@@ -70,6 +80,12 @@ public class FileHelper {
         return null;
     }
 
+    /**
+     * Writes image to file
+     * @param filename
+     * @param format
+     * @param image
+     */
     public static void writeImage(String filename, String format, BufferedImage image) {
         String fullFileName = filename + "." + format;
 
@@ -111,6 +127,11 @@ public class FileHelper {
         }
     }
 
+    /**
+     * Writes image to file
+     * @param URL
+     * @param image
+     */
     public static void writeImage(String URL, BufferedImage image) {
         String[] parts = URL.split("[.]");
 
@@ -122,6 +143,11 @@ public class FileHelper {
         writeImage(parts[0], parts[parts.length - 1], image);
     }
 
+    /**
+     * Creates file in specified location
+     * @param URL
+     * @return {@link File} or null if error occured
+     */
     private static File createFile(String URL) {
         App.logger.debug("Trying to create file " + URL);
 
