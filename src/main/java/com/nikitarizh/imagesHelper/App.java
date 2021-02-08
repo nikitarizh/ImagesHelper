@@ -30,7 +30,9 @@ public class App {
         System.out.println("\n\nSpecify new width");
         int newWidth = in.nextInt();
 
-        FileHelper.writeImage("2-streams", "jpg", ImageHelper.resizeImage(image, newWidth, Image.SCALE_SMOOTH));
+        String newName = filename.replaceAll("([.][j][p][g])|([.][p][n][g])", "") + "-processed";
+
+        FileHelper.writeImage(newName, "jpg", ImageHelper.resizeImage(image, newWidth, Image.SCALE_SMOOTH));
 
         in.close();
     }
