@@ -14,9 +14,4 @@ public class Blur implements Blurrer {
     public BufferedImage blur(BufferedImage image, int radius) {
         return blurAlgorithm.blur(image, radius);
     }
-
-}
-
-interface Blurrer {
-    public BufferedImage blur(BufferedImage image, int radius);
 }

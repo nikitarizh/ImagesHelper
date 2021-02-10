@@ -26,6 +26,14 @@ public class GaussianBlur implements Blurrer {
         return ImageHelper.matrixToImage(output);
     }
 
+    /**
+     * Calculates average RGB for pixel for radius {@code radius}
+     * @param pixels
+     * @param y
+     * @param x
+     * @param radius
+     * @return average RGB sum
+     */
     private int calculateSum(int[][] pixels, int y, int x, int radius) {
         int rSum = 0;
         int gSum = 0;
