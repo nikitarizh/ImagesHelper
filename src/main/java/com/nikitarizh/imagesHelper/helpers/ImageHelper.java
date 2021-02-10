@@ -75,4 +75,39 @@ public class ImageHelper {
 
         return bufferedImage;
     }
+
+    public static int[][] imageToMatrix(BufferedImage image) {
+        App.logger.debug("Converting image to matrix");
+
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        int[][] output = new int[width][height];
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                int rgb = image.getRGB(i, j);
+                int r = (rgb >> 16) & 0xFF;
+                int g = (rgb >> 8) & 0xFF;
+                int b = rgb & 0xFF;
+                output[i][j] = (r << 16) + (g << 8) + b;
+            }
+        }
+
+        App.logger.info("Successfully converted image to matrix");
+        return output;
+    }
+
+    public static BufferedImage matrixToImage(int[][] matrix) {
+        App.logger.debug("Converting matrix to image");
+
+        BufferedImage bufferedImage = new BufferedImage(matrix.length, matrix[0].length, BufferedImage.TYPE_INT_RGB);
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                bufferedImage.setRGB(i, j, matrix[i][j]);
+            }
+        }
+
+        App.logger.info("Successfully converted matrix to image");
+        return bufferedImage;
+    }
 }
