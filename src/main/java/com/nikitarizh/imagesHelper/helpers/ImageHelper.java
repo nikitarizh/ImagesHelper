@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import com.nikitarizh.imagesHelper.App;
+import com.nikitarizh.imagesHelper.resize.*;
 
 public class ImageHelper {
     
@@ -16,18 +17,20 @@ public class ImageHelper {
      * @param hints
      * @return resized {@link BufferedImage}
      */
-    public static BufferedImage resizeImage(BufferedImage image, int newWidth, int newHeight, int hints) {
-        App.logger.debug("Trying to resize image " + image.toString());
+    public static BufferedImage resizeImage(BufferedImage image, int newWidth, int newHeight, int hints, Resizer resizeStrategy) {
+        App.logger.debug("Preparing for image resizing");
+        App.logger.debug("Checking aspect ratio");
 
-        App.logger.debug("Getting scaled instance");
-        Image scaled = image.getScaledInstance(newWidth, newHeight, hints);
+        double oldRatio = (double) image.getWidth() / image.getHeight();
+        double newRatio = (double) newWidth / newHeight;
 
-        App.logger.debug("Converting scaled instance to BufferedImage");
-        BufferedImage bufferedImage = toBufferedImage(scaled);
+        if (Math.abs(oldRatio - newRatio) > 0.0001) {
+            App.logger.debug("New aspect ratio is different, calling resize with blur ratio saving");
 
-        App.logger.info("Successfully resized image " + image.toString());
+            return resizeStrategy.resize(image, newWidth, newHeight, hints);
+        }
 
-        return bufferedImage;
+        return new Resize(new ResizeWithoutRatioSaving()).resize(image, newWidth, newHeight, hints);
     }
 
     /**
@@ -37,10 +40,57 @@ public class ImageHelper {
      * @param hints
      * @return resized {@link BufferedImage}
      */
-    public static BufferedImage resizeImage(BufferedImage image, int newWidth, int hints) {
+    public static BufferedImage resizeImage(BufferedImage image, int newWidth, int hints, Resizer resizeStrategy) {
         int newHeight = newWidth  * image.getHeight() / image.getWidth();
         
-        return resizeImage(image, newWidth, newHeight, hints);
+        return resizeImage(image, newWidth, newHeight, hints, resizeStrategy);
+    }
+
+    /**
+     * Crops {@image}
+     * @param image
+     * @param left
+     * @param top
+     * @param right
+     * @param bottom
+     * @return cropped image
+     */
+    public static BufferedImage crop(BufferedImage image, int left, int top, int right, int bottom) {
+        App.logger.debug("Trying to crop image " + image + " left: " + left + " top: " + top + " right: " + right + " bottom: " + bottom);
+        BufferedImage output = new BufferedImage(image.getWidth() - left - right, image.getHeight() - top - bottom, BufferedImage.TYPE_INT_RGB);
+        
+        Graphics2D graphics = (Graphics2D) output.getGraphics();
+        graphics.drawImage(image, -left, -top, image.getWidth() - right, image.getHeight() - bottom, null);
+
+        graphics.dispose();
+
+        App.logger.info("Successfully cropped image " + image);
+        return output;
+    }
+
+    /**
+     * Crops {@image} {@code offset} pixels from each side
+     * @param image
+     * @param offset
+     * @return cropped image
+     */
+    public static BufferedImage crop(BufferedImage image, int offset) {
+        return crop(image, offset, offset, offset, offset);
+    }
+
+    /**
+     * Crops {@image} to have width {@code newWidth} and height {@code newHeight}
+     * @param image
+     * @param newWidth
+     * @param newHeight
+     * @return cropped image
+     */
+    public static BufferedImage crop(BufferedImage image, int newWidth, int newHeight) {
+        int horizontal = (int) Math.abs((newWidth - image.getWidth()) / 2);
+
+        int vertical = (int) Math.abs((newHeight - image.getHeight()) / 2);
+
+        return crop(image, horizontal, vertical, horizontal, vertical);
     }
 
     /**
@@ -76,6 +126,11 @@ public class ImageHelper {
         return bufferedImage;
     }
 
+    /**
+     * Converts {@image} to int[][] - array of pixels
+     * @param image
+     * @return int[][]
+     */
     public static int[][] imageToMatrix(BufferedImage image) {
         App.logger.debug("Converting image to matrix");
 
@@ -97,6 +152,11 @@ public class ImageHelper {
         return output;
     }
 
+    /**
+     * Converts int[][] - array of pixels to {@code BufferedImage}
+     * @param matrix
+     * @return image
+     */
     public static BufferedImage matrixToImage(int[][] matrix) {
         App.logger.debug("Converting matrix to image");
 
