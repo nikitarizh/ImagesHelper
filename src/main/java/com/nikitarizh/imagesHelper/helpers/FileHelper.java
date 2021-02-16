@@ -80,6 +80,30 @@ public class FileHelper {
         return null;
     }
 
+    public static BufferedImage getImage(File file) {
+        App.logger.debug("Trying to read image from file " + file);
+
+        if (file.exists()) {
+            try {
+                App.logger.debug("Returning image from file " + file);
+                return ImageIO.read(file);
+            }
+            catch (IllegalArgumentException e) {
+                App.logger.error("Image file can't be null");
+                e.printStackTrace();
+            }
+            catch (IOException e) {
+                App.logger.error("An error occured during reading image from file " + file + " or unable to create stream");
+                e.printStackTrace();
+            }
+        }
+        else {
+            App.logger.error("File " + file.getPath() + " doesn't exist");
+        }
+
+        return null;
+    }
+
     /**
      * Writes image to file
      * @param filename
