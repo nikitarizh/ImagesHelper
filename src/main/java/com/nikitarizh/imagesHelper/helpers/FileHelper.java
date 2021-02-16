@@ -80,6 +80,11 @@ public class FileHelper {
         return null;
     }
 
+    /**
+     * Returns image (as {@link BufferedImage}) from specified file
+     * @param file
+     * @return {@link BufferedImage} or null if file is null or error occured
+     */
     public static BufferedImage getImage(File file) {
         App.logger.debug("Trying to read image from file " + file);
 
