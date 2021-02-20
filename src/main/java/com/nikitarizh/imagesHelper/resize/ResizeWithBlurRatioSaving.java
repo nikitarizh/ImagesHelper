@@ -27,7 +27,7 @@ public class ResizeWithBlurRatioSaving implements Resizer {
         double quotient = Math.min(widthRatio, heightRatio);
 
         App.logger.debug("Resizing core image");
-        resizedImage = new ResizeWithoutRatioSaving().resize(blurAlgorithm.blur(image, 2), (int) Math.floor(initialWidth * quotient), 
+        resizedImage = new ResizeWithoutRatioSaving().resize(blurAlgorithm.blur(image, 1), (int) Math.floor(initialWidth * quotient), 
                                                             (int) Math.floor(initialHeight * quotient), BufferedImage.TYPE_INT_RGB);
 
         int widthDelta = Math.abs(resizedImage.getWidth() - newWidth);
