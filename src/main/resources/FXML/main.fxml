@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="286.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nikitarizh.imagesHelper.controller.MainController">
+   <children>
+      <Pane prefHeight="403.0" prefWidth="600.0">
+         <children>
+            <Button fx:id="chooseFileButton" layoutX="13.0" layoutY="14.0" mnemonicParsing="false" onAction="#chooseFileButtonPressed" prefHeight="27.0" prefWidth="154.0" text="Choose files" />
+            <Label fx:id="filenameLabel" layoutX="186.0" layoutY="19.0" prefHeight="17.0" prefWidth="401.0" />
+            <ProgressBar fx:id="progressBar" layoutX="13.0" layoutY="200.0" prefHeight="20.0" prefWidth="575.0" progress="0.0" />
+            <Button fx:id="processButton" layoutX="524.0" layoutY="237.0" mnemonicParsing="false" onAction="#processButtonPressed" text="Process" />
+            <Label fx:id="progressLabel" layoutX="13.0" layoutY="242.0" prefHeight="17.0" prefWidth="481.0" />
+            <TextField fx:id="newWidthInput" layoutX="14.0" layoutY="103.0" prefHeight="27.0" prefWidth="116.0" promptText="New width (in px)" />
+            <TextField fx:id="newHeightInput" layoutX="14.0" layoutY="145.0" prefHeight="27.0" prefWidth="116.0" promptText="New height (in px)" />
+            <Button fx:id="newFolderButton" layoutX="13.0" layoutY="59.0" mnemonicParsing="false" onAction="#newFolderButtonPressed" prefHeight="27.0" prefWidth="154.0" text="Choose saving directory" />
+            <Line endX="472.0" layoutX="115.0" layoutY="50.0" startX="-100.0" />
+            <Label fx:id="newFolderLabel" layoutX="186.0" layoutY="64.0" prefHeight="17.0" prefWidth="401.0" />
+         </children>
+      </Pane>
+   </children>
+</VBox>
