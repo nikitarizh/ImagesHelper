@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 public interface Resizer {
     /**
-     * Resized image to {@code newWidth} by {@code newHeight}
+     * Resizes image to {@code newWidth} by {@code newHeight}
      * @param image
      * @param newWidth
      * @param newHeight
