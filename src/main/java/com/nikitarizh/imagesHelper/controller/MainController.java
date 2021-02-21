@@ -49,7 +49,10 @@ public class MainController {
         files = fc.showOpenMultipleDialog(new Stage());
 
         if (files != null) {
-            if (files.size() % 10 == 1) {
+            if (files.size() == 1) {
+                filenameLabel.setText(files.get(0).getName());
+            }
+            else if (files.size() % 10 == 1) {
                 filenameLabel.setText(files.size() + " file");
             }
             else {
